@@ -1,0 +1,21 @@
+
+#comments {
+  margin-top: 15px;
+}
+.indented {
+  margin-left: 25px; /* LTR */
+}
+.comment-unpublished {
+  background-color: #fff4f4;
+}
+.comment-preview {
+  background-color: #ffffea;
+}
+.custom-comment-column-left {
+	width: 20%;
+	float: left;
+}
+.custom-comment-column-right {
+	width: 80%;
+	float: right;
+}

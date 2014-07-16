@@ -1,0 +1,94 @@
+<?php
+/*
+* Implements hook_block_info().
+*/
+function my_tags_block_info() {
+	$blocks = array();
+	$blocks['my_tags'] = array(
+		'info' => t('My Tags Block'),
+		);
+	return $blocks;
+ }
+/*
+* Implements hook_block_view().
+*/
+function my_tags_block_view($delta = '') {
+	$block = array();
+	if ($delta == 'my_tags'){
+	$string = '';
+	$query = db_select('field_data_field_tags', 'fdft');
+	$query->fields('fdft', array('field_tags_tid'));
+	$query->join('taxonomy_term_data', 'ttd', 'ttd.tid = fdft.field_tags_tid');
+	$query->fields('ttd', array('name'));
+	$query->addExpression('COUNT (entity_id)', 'icount');
+	$query->groupBy('field_tags_tid');
+	$query->orderBy('icount', 'DESC');
+	$result = $query -> execute();
+		foreach ($result as $row) {
+			// $string = $string . '<li>Tag <a href=?q=term_page/' . $row->field_tags_tid . '>' . $row->name . '</a> used ' . $row->icount . ' times</li>';
+			// dpm($row);
+			$items[] = l('Tag "' . $row->name . '" used ' . $row->icount . ' times', 'term_page/' . $row->field_tags_tid);
+		}
+	$block['subject'] = t('Most popular tags');
+	// $block['content'] = t($string);
+	$block['content'] = theme('item_list', array('items' => $items));
+
+	}
+	return $block;
+}
+/*
+* Implements hook_menu().
+*/
+function my_tags_menu(){
+	$items ['term_page'] = array(
+		'page callback' => 'my_term_page',
+		'access callback' => TRUE,
+		);
+	return $items;            
+}
+function my_term_page($id = 0){
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'node');
+	$query->fieldCondition('field_tags', 'tid', $id);
+	$result = $query->execute();
+	// dpm($result);
+	if (isset($result['node'])) {
+  		$news_items_nids = array_keys($result['node']);
+  		$news_items = entity_load('node', $news_items_nids);
+	}
+	// dpm($news_items);
+	foreach ($news_items as $node) {
+		$nodeView = node_view($node, 'teaser');
+		$output[] = render($nodeView);
+	}
+	return theme('item_list', array('items' => $output));
+}
+
+/*
+cu db_query
+$result = '';
+		$query = db_query("SELECT COUNT(entity_id) icount, field_tags_tid, {taxonomy_term_data}.name AS name 
+		FROM  {field_data_field_tags}
+		INNER JOIN {taxonomy_term_data} ON  {taxonomy_term_data}.tid = {field_data_field_tags}.field_tags_tid
+		GROUP BY field_tags_tid 
+		ORDER BY icount DESC 
+		LIMIT 0 , 30");
+		foreach ($query as $record) {
+			$result = $result . "<li>" . $record->name . " " . $record->icount . " times</li>";
+		}
+cu db_select
+$string = '';
+	$query = db_select('field_data_field_tags', 'fdft');
+	$query->fields('fdft', array('field_tags_tid'));
+	$query->join('taxonomy_term_data', 'ttd', 'ttd.tid = fdft.field_tags_tid');
+	$query->fields('ttd', array('name'));
+	$query->addExpression('COUNT (entity_id)', 'icount');
+	$query->groupBy('field_tags_tid');
+	$query->orderBy('icount', 'DESC');
+	$result = $query -> execute();
+		foreach ($result as $row) {
+			$string = $string . '<li>Tag <a href=/movie-database/?q=taxonomy/term/' . $row->field_tags_tid . '>' . $row->name . '</a> used ' . $row->icount . ' times</li>';
+			dpm($row);
+		}
+*/
+?>

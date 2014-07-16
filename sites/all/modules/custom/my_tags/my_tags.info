@@ -1,0 +1,5 @@
+name = My Tags
+description = Custom module to display my_tags block
+version = 0.1-dev
+core = 7.x
+package = Custom

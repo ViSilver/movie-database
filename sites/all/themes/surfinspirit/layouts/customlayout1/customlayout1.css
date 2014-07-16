@@ -1,0 +1,22 @@
+/*custom css for this layout*/
+.panel-customlayout1-row {
+	width: 100%;
+}
+.panel-customlayout1-top-left {
+	float: left;
+	width: 50%;
+}
+.panel-customlayout1-top-right {
+	float: right;
+	width: 50%;
+}
+.panel-customlayout1-middle-left,
+.panel-customlayout1-middle-right,
+.panel-customlayout1-middle-center {
+	float: left;
+	width: 33%;
+}
+
+.panel-customlayout1-bottom {
+	width: 100%;
+}

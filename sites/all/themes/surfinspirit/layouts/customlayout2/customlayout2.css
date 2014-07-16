@@ -1,0 +1,58 @@
+/*custom css for this layout*/
+.panel-customlayout2-left-column {
+	float: left;
+	width: 80%;
+}
+.panel-customlayout2-right-column {
+	float: right;
+	width: 20%;
+}
+.panel-customlayout2-row {
+	width: 100%;
+}
+h1 {
+
+}
+h2 {
+
+}
+.panel-customlayout2-first-left {
+	float: left;
+	width: 60%;
+}
+.panel-customlayout2-first-right {
+	float: right;
+	width: 40%;
+}
+.panel-customlayout2-second-left {
+	float: left;
+	width: 40%;
+}
+.panel-customlayout2-second-right {
+	float: right;
+	width: 60%;
+}
+.panel-customlayout2-third-left {
+	float: left;
+	width: 60%;
+}
+.panel-customlayout2-third-right {
+	float: right;
+	width: 40%;
+}
+.panel-customlayout2-fourth-left {
+	float: left;
+	width: 80%;
+}
+.panel-customlayout2-fourth-right {
+	float: right;
+	width: 20%;
+}
+.panel-customlayout2-fifth-left {
+	float: left;
+	width: 50%;
+}
+.panel-customlayout2-fifth-right {
+	float: right;
+	width: 50%;
+}
