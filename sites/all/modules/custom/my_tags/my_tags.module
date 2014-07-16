@@ -64,21 +64,19 @@ function my_term_page($id = 0){
 	// 	$output[] = render($nodeView);
 	// }
 	// return theme('item_list', array('items' => $output));
-	  $output['list'] = array(
+	$output['list'] = array(
     '#type' => 'container',
     '#tag' => 'div',
     '#attributes' => array('class' => 'node-list'),
-  );
-
-  foreach ($news_items as $key => $node) {
+    );
+	foreach ($news_items as $key => $node) {
   	$render = node_view($node, 'teaser');
-
-    $output['list'] [$key] = array(
+	$output['list'] [$key] = array(
       '#type' => 'html_tag',
       '#tag' => 'div',
       '#value' => render($render),
     );
-}
+	}
 return render($output);
 }
 
