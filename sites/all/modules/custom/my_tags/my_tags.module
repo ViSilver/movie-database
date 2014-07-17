@@ -53,10 +53,8 @@ function my_term_page($id = 0){
 	$result = $query->execute();
 	// dpm($result);
 	if (isset($result['node'])) {
-  		$news_items_nids = array_keys($result['node']);
-  		node_load();
-
-  		$news_items = entity_load('node', $news_items_nids);
+		$news_items_nids = array_keys($result['node']);
+		$news_items = entity_load('node', $news_items_nids);
 	}
 	// // dpm($news_items);
 	// foreach ($news_items as $node) {
@@ -65,17 +63,17 @@ function my_term_page($id = 0){
 	// }
 	// return theme('item_list', array('items' => $output));
 	$output['list'] = array(
-    '#type' => 'container',
-    '#tag' => 'div',
-    '#attributes' => array('class' => 'node-list'),
-    );
+		'#type' => 'container',
+		'#tag' => 'div',
+		'#attributes' => array('class' => 'node-list'),
+		);
 	foreach ($news_items as $key => $node) {
-  	$render = node_view($node, 'teaser');
+	$render = node_view($node, 'teaser');
 	$output['list'] [$key] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'div',
-      '#value' => render($render),
-    );
+	  '#type' => 'html_tag',
+	  '#tag' => 'div',
+	  '#value' => render($render),
+	);
 	}
 return render($output);
 }
@@ -107,4 +105,3 @@ $string = '';
 			dpm($row);
 		}
 */
-?>
